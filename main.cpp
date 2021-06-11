@@ -12,7 +12,8 @@ int main(int argc, char *argv[]){
 
     int input;
     
-    myFile.open("assign.dat");
+    try{
+        myFile.open("assn.dat");
 
     if(myFile.is_open()){
         while(!myFile.eof()){
@@ -20,10 +21,16 @@ int main(int argc, char *argv[]){
             bst.insertValue(input);
         }
     }
-    cout << bst.findNode(4) << endl; 
-    //bst.printTree();
-    //bst.sortTree();
+    bst.formattedPrint();
+    bst.createVine();
+    bst.createBalancedTree();
+    //cout << "---------------------------" << endl;
+  
+    bst.printTree();
     myFile.close();
+    } catch (MyException &e){
+        cout << e.what() << endl;
+    }
 
     return 0;
 }

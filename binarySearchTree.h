@@ -40,10 +40,9 @@ class C_binarySearchTree{
         void p_populateArray(B_NODE*, int*, int);
         void p_height(B_NODE*);
         void p_deleteTree(B_NODE*);
-
         void p_createVine();
-        void p_rotateRight();
-        void p_rotateLeft();
+        void p_rotateRight(B_NODE*,B_NODE*,B_NODE*);
+        void p_rotateLeft(B_NODE*,B_NODE*,B_NODE*);
         void p_createTree();
         
 };
