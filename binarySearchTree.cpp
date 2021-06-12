@@ -85,9 +85,9 @@ void C_bst::insertValue(int value){
         this->root = node;
     } else {
         this->p_insertValue(this->root, node);
+        this->nodeCount++;
 
     }
-    this->nodeCount++;
     return;
 } 
 /*
@@ -157,17 +157,14 @@ void C_bst::p_createBalancedTree(){
         // the nunmber of nodes is less than 3 without balancing
         return;
     }
+    int m = (1 << (int)log2(n + 1)) - 1;
 
-    int m = pow(2, floor(log2(n + 1)) - 1);
     B_NODE* grandParent = NULL;
     B_NODE* parent = this->root;
     B_NODE* child = this->root->right;
 
-    // modify the root pointer
-    //this->root = this->root->right;
-
     // the first stage: left-handed n - m times
-    for(int i = 0; i <= n - m; i++){
+    for(int i = 0; i < n - m; i++){
         this->p_rotateLeft(grandParent, parent, child);
         grandParent = child;
         parent = grandParent->right;
@@ -179,38 +176,22 @@ void C_bst::p_createBalancedTree(){
         }
     }
    
-    // second stage, enter the while loop
-    /*while(m > 1){
-        m >> 1;
-        B_NODE* grandParent = NULL;
-        B_NODE* child = this->root->right;
-
-        this->root = this->root->right;
-        
-        for(int i = 0; i < m;i++){
-            this->p_rotateLeft(grandParent, parent, child);
-            grandParent = child;
-            parent = grandParent->right;
-
-            if(NULL != parent){
-                child = parent->right;
-            } else {
-                break;
-            }
-        }
-    }*/
+   
     while (m > 1){ 
         B_NODE* grandParent = NULL;
         B_NODE* parent = this->root;
         B_NODE* child = this->root->right;
         m = m/2;
-        for(int j = 0; j <= m;++j){
-            if(NULL != child){
+        this->root = this->root->right;
+        for(int j = 0; j < m;++j){
                 this->p_rotateLeft(grandParent, parent, child);
                 grandParent = child;
                 parent = grandParent->right;
-                child = parent->right;
-            } else {
+
+                if(NULL != parent){
+                    child = parent->right;
+                }
+            else {
                 break;
             }
         }
@@ -418,7 +399,7 @@ void C_bst::p_printTree(B_NODE* node){
         cout << node->value << endl;
         this->p_printTree(node->right);
     }
-    cout << height() << endl;
+
 }
 
 
@@ -431,11 +412,7 @@ void C_bst::p_printTree(B_NODE* node){
 **    Side Effects: 
 */
 void C_bst::p_rotateLeft(B_NODE* grandParent, B_NODE* parent, B_NODE* child){
-    /*if(NULL != grandParent){
-        grandParent->right = child;
-    }
-    parent->right = child->left;
-    child->left = parent;*/
+    
     if(NULL != grandParent){
         grandParent->right = child;
     } else {
@@ -452,12 +429,7 @@ void C_bst::p_rotateLeft(B_NODE* grandParent, B_NODE* parent, B_NODE* child){
 **    Side Effects: 
 */
 void C_bst::p_rotateRight(B_NODE* grandParent, B_NODE* parent, B_NODE* child){
-    /*if(NULL != grandParent){
-        grandParent->right = child;
-
-    }
-    parent->left = child;
-    child->right = parent;*/
+   
     if(NULL != grandParent){
         grandParent->right = child;
     } else {

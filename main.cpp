@@ -2,6 +2,7 @@
 #include "bst.h"
 #include <iostream>
 #include <fstream>
+#include <math.h>
 
 using namespace std;
 
@@ -13,7 +14,7 @@ int main(int argc, char *argv[]){
     int input;
     
     try{
-        myFile.open("assn.dat");
+        myFile.open("assign.dat");
 
     if(myFile.is_open()){
         while(!myFile.eof()){
@@ -24,9 +25,10 @@ int main(int argc, char *argv[]){
     bst.formattedPrint();
     bst.createVine();
     bst.createBalancedTree();
-    //cout << "---------------------------" << endl;
-  
-    bst.printTree();
+    cout << "---------------------------" << endl;
+    bst.formattedPrint();
+
+    //bst.printTree();
     myFile.close();
     } catch (MyException &e){
         cout << e.what() << endl;
